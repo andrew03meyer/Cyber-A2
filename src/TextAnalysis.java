@@ -89,22 +89,32 @@ public class TextAnalysis {
         Character textChar = findHighestFreqChar(textLetterFreq);
         Character cipherChar = findHighestFreqChar(cipherTextLetterFreq);
 
-        int cipherCharNum = (int) cipherChar;
-        int textCharNum = (int) textChar;
+        System.out.println(textChar + " : " + cipherChar);
+
+        // int cipherCharNum = (int) cipherChar;
+        // int textCharNum = (int) textChar;
 
         String decode = "";
 
         for(Character c : cipherText.toCharArray()){
-            char newC = ((char)((int) c + (cipherCharNum - textCharNum)));
-
-            if(newC > 'Z'){
-                newC = (char)(newC - 26);
-            }
-
+            char newC = shiftByNum(c, Math.abs(textChar - cipherChar));
             decode += newC;
         }
 
         System.out.println(decode);
+    }
+
+    public Character shiftByNum(Character c, Integer num){
+
+        char newC = ' ';
+
+        newC = (char) (c - num);
+
+        if(newC < 'A'){
+            newC = (char)(newC + 26);
+        }
+
+        return newC;
     }
 
     /*
@@ -163,10 +173,15 @@ public class TextAnalysis {
         bruteForce("cexercise1.txt");
     }
     
-    public void processEx2(String fileName){
+    public void processEx2(){
         String encoder = "TESSOFTHEDURBERVILLES";
-        String cipherText = getExercise(fileName);
+        String cipherText = getExercise("cexercise2.txt");
 
         stringShift(encoder, cipherText);
+    }
+
+    public void processEx3(String fileName){
+
+        shiftByFrequency(fileName);
     }
 }
