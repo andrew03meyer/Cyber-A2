@@ -24,11 +24,11 @@ public class TextAnalysis {
         return data;
     }
 
-    public String getEx1(){
+    public String getExercise(String fileName){
         String data;
 
         try {
-            File tess = new File("C:\\Users\\andrr\\OneDrive - University of Kent\\Files\\Computer Science\\Year 2 (23-24)\\Intro to Cyber Security\\Assignment 2\\Excercises\\cexercise1.txt");
+            File tess = new File("C:\\Users\\andrr\\OneDrive - University of Kent\\Files\\Computer Science\\Year 2 (23-24)\\Intro to Cyber Security\\Assignment 2\\Excercises\\" + fileName);
             Scanner myReader = new Scanner(tess);
             data = myReader.nextLine();
             myReader.close();
@@ -59,20 +59,6 @@ public class TextAnalysis {
         return letterFreq;
     }
 
-    public void processEx1(){
-        String text = getTess26();
-        String cipherText = getEx1();
-
-        HashMap<Character, Integer> textLetterFreq = letterFreq(text);
-        HashMap<Character, Integer> cipherTextLetterFreq = letterFreq(cipherText);
-
-        Character textCommon = findHighestFreqChar(textLetterFreq);
-        Character cipherCommon = findHighestFreqChar(cipherTextLetterFreq);
-
-        bruteForce(cipherText);
-        // shift(cipherText, cipherCommon, textCommon);
-    }
-
     private Character findHighestFreqChar(HashMap<Character, Integer> hashset){
 
         int highestInt = 0;
@@ -88,24 +74,46 @@ public class TextAnalysis {
         return highestChar;
     }
 
-    private void shift(String ciphertext, Character cipherChar, Character textChar){
-        // List<Character> albet = Arrays.asList('A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
-        // int shiftVal = 0;
+    /*
+     * Shifts by the difference between the two most common characters in two texts
+     * @param - the file to do analysis
+     * Prints decoded value
+     */
+    private void shiftByFrequency(String exercise){
+        String text = getTess26();
+        String cipherText = getExercise(exercise);
+
+        HashMap<Character, Integer> textLetterFreq = letterFreq(text);
+        HashMap<Character, Integer> cipherTextLetterFreq = letterFreq(cipherText);
+
+        Character textChar = findHighestFreqChar(textLetterFreq);
+        Character cipherChar = findHighestFreqChar(cipherTextLetterFreq);
 
         int cipherCharNum = (int) cipherChar;
         int textCharNum = (int) textChar;
 
         String decode = "";
 
-        for(Character c : ciphertext.toCharArray()){
-            char newC = ((char)((int) c + ((cipherCharNum - textCharNum) % 26)));
+        for(Character c : cipherText.toCharArray()){
+            char newC = ((char)((int) c + (cipherCharNum - textCharNum)));
+
+            if(newC > 'Z'){
+                newC = (char)(newC - 26);
+            }
+
             decode += newC;
         }
 
         System.out.println(decode);
     }
 
-    public void bruteForce(String cipherText){
+    /*
+     * Try each shift (+1 to +25)
+     * Uses ascii values for letters, and looping at letter Z
+     * Prints decryption for each shift
+     */
+    public void bruteForce(String fileName){
+        String cipherText = getExercise(fileName);
         //shift is +21 from ciphertext -> plain (therefore +5 to go from plain to cipher)
         for(int x = 1; x < 26; x++){
             String decode = "";
@@ -118,8 +126,47 @@ public class TextAnalysis {
     
                 decode += newC;
             }
-            System.out.println(x + ": " + decode);
+            System.out.println(x + ": " + "\n" + decode + "\n");
         }
     }
+
+    public void stringShift(String encoding, String cipherText){
+        int count = 0;
+        String answer = "";
+
+        // For each character
+        for(Character c : cipherText.toCharArray()){
+            answer += shiftLetter(c, encoding.charAt(count));
+            count = (count+1) % encoding.length();
+        }
+        System.out.println(answer);
+    }
+
+    private Character shiftLetter(Character shiftee, Character shifter){
+        char newC = ' ';
+
+        int num = shiftee - Math.abs((shifter - 'A'));
+        newC = (char) num;
+
+        if(newC < 'A'){
+            newC = (char)(newC + 26);
+        }
+
+        return newC;
+    }
+
+    /*
+     * Method for exercise 1
+     * @calls - bruteForce
+     */
+    public void processEx1(){
+        bruteForce("cexercise1.txt");
+    }
     
+    public void processEx2(String fileName){
+        String encoder = "TESSOFTHEDURBERVILLES";
+        String cipherText = getExercise(fileName);
+
+        stringShift(encoder, cipherText);
+    }
 }
