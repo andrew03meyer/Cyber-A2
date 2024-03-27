@@ -1,7 +1,9 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 
 public class TextAnalysis {
@@ -140,7 +142,93 @@ public class TextAnalysis {
         }
     }
 
-    public void stringShift(String encoding, String cipherText){
+    public void ArbitraryVignere(int length){
+        // String tess26 = getTess26();
+        String exercise = getExercise("cexercise3.txt");
+        ArrayList<String> sixLetters = new ArrayList<>();
+
+        String tess26 = getTess26();
+
+        //
+
+        // Split into l length strings
+        int count = 0;
+        while(exercise.length() > count){
+            sixLetters.add(exercise.substring(count, count+length));
+            count+=length;
+        }
+
+        //Find most common letter in each column
+        ArrayList<Character> chars = new ArrayList<>();
+        
+        for(int x = 0; x < length; x++){
+            //hash for frequency
+            HashMap<Character, Integer> hash1 = new HashMap<>();
+            for(String item : sixLetters){    
+                if(hash1.containsKey(item.charAt(x))){
+                    hash1.put(item.charAt(x), hash1.get(item.charAt(x))+1);
+                }
+                else{
+                    hash1.put(item.charAt(x), 1);
+                }
+            }
+
+            Character highestChar = 'a';
+            int highestNum = -1;
+            for(Character c : hash1.keySet()){
+                if(hash1.get(c) > highestNum){
+                    highestChar = c;
+                    highestNum = hash1.get(c);
+                }
+            }
+
+            chars.add(highestChar);
+        }
+
+        System.out.println(chars.toString());
+
+        String comLetString = "";
+        for(char c : chars){
+            comLetString += c;
+        }
+
+        //Shifts
+        char[] mostCommon = {'e', 't', 'i', 'o', 'a', 'n'};
+        List<String> permutations = generatePermutations(mostCommon);
+        for (String perm : permutations) {
+            if(tess26.contains(stringShift(perm, comLetString.toLowerCase()))){
+                System.out.println("perm found: " + stringShift(perm, comLetString.toLowerCase()));
+            }
+            
+        }
+
+    }
+
+    public static List<String> generatePermutations(char[] chars) {
+        List<String> result = new ArrayList<>();
+        generatePermutations(chars, 0, result);
+        return result;
+    }
+
+    private static void generatePermutations(char[] chars, int index, List<String> result) {
+        if (index == chars.length - 1) {
+            result.add(new String(chars));
+        } else {
+            for (int i = index; i < chars.length; i++) {
+                swap(chars, index, i);
+                generatePermutations(chars, index + 1, result);
+                swap(chars, index, i);
+            }
+        }
+    }
+
+    private static void swap(char[] chars, int i, int j) {
+        char temp = chars[i];
+        chars[i] = chars[j];
+        chars[j] = temp;
+    }
+
+    public String stringShift(String encoding, String cipherText){
         int count = 0;
         String answer = "";
 
@@ -149,7 +237,7 @@ public class TextAnalysis {
             answer += shiftLetter(c, encoding.charAt(count));
             count = (count+1) % encoding.length();
         }
-        System.out.println(answer);
+        return answer;
     }
 
     private Character shiftLetter(Character shiftee, Character shifter){
@@ -181,7 +269,6 @@ public class TextAnalysis {
     }
 
     public void processEx3(String fileName){
-
-        shiftByFrequency(fileName);
+        
     }
 }
