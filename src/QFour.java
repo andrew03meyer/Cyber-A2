@@ -5,102 +5,76 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
-public class QThree{
-    public void processEx3(){
-        ArbitraryVignere(4);
+public class QFour{
+    public void processEx4(){
+        ArbitraryVignere();
     }
 
     /**
      * Perform frequency analysis on the text for a vignere key that is l digits long
      * @param length
      */
-    public void ArbitraryVignere(int length){
-        // String tess26 = getTess26();
+    public void ArbitraryVignere(){
         String exercise = getExercise("cexercise4.txt");
-        ArrayList<String> sixLetters = new ArrayList<>();
-
-        String tess26 = getTess26();
-
-        // Split into l length strings
-        int count = 0;
-        while(exercise.length() > count){
-            sixLetters.add(exercise.substring(count, count+length));
-            // System.out.println(exercise.substring(count, count+length) +"\n");
-            count+=length;
-        }
-
-        //Find most common letter in each column
-        ArrayList<Character> chars = new ArrayList<>();
         
-        for(int x = 0; x < length; x++){
-            //hash for frequency
-            HashMap<Character, Integer> hash1 = new HashMap<>();
-            for(String item : sixLetters){    
-                if(hash1.containsKey(item.charAt(x))){
-                    hash1.put(item.charAt(x), hash1.get(item.charAt(x))+1);
-                }
-                else{
-                    hash1.put(item.charAt(x), 1);
-                }
-            }
+        // Split into l length strings
+        ArrayList<String> fourLetters = split(exercise, 4);
+        ArrayList<String> repeats = new ArrayList<>();
 
-            Character highestChar = 'a';
-            int highestNum = -1;
-            for(Character c : hash1.keySet()){
-                if(hash1.get(c) > highestNum){
-                    highestChar = c;
-                    highestNum = hash1.get(c);
+        //Find repeats
+        int index1 = 0;
+        for(String item : fourLetters){
+            int index2 = 0;
+            for(String comp : fourLetters){
+                if(comp.equals(item) && !repeats.contains(item) && index1 != index2){
+                    repeats.add(item);
                 }
+                index2++;
             }
-
-            chars.add(highestChar);
+            index1++;
         }
 
-        System.out.println(chars.toString());
-
-        System.out.println(sixLetters.toString());
-
-        //shift first 3 values
-        String total = "";
-        for(String temp : sixLetters) {
-            String newTemp = temp;
-            newTemp = shiftByNum(newTemp.charAt(0), 'H' - 'E') + newTemp.substring(1);
-            newTemp = newTemp.substring(0, 1) + shiftByNum(newTemp.charAt(1), 'G' - 'E') + newTemp.substring(2);
-            newTemp = newTemp.substring(0, 2) + shiftByNum(newTemp.charAt(2), 'H' - 'E') + newTemp.substring(3);
-            newTemp = newTemp.substring(0, 3) + shiftByNum(newTemp.charAt(3), 'H' - 'D'); //+ newTemp.substring(4);
-            // newTemp = newTemp.substring(0, 4) + shiftByNum(newTemp.charAt(4), 'U' - 'H') + newTemp.substring(5);
-            // newTemp = newTemp.substring(0, 5) + shiftByNum(newTemp.charAt(5), 'G' - 'E');
-            // System.out.println("Old value: " + temp);
-            // System.out.println("New value: " + newTemp +"\n");
+        System.out.println(fourLetters.toString());
+        System.out.println(repeats.toString());
+        //Find difference for each repeat
+        for(int x = 0; x < repeats.size(); x++){
             
-            
-            total += newTemp;
-        }
-        //frequency for each column
-        for(int x = 0; x < 4; x++){
-            String col = "";
-            for(String item : sixLetters){
-                col += item.charAt(x);
+            int count = 0;
+            ArrayList<Integer> index = new ArrayList<>();
+            for(String item : fourLetters){
+                if(item.equals(repeats.get(x))){
+                    index.add(count);
+                }
+                count+=4;
             }
-            // System.out.println(letterFreq(col).toString());
+            int difference = index.get(1) - index.get(0);
+            Boolean divsix = false;
+            Boolean divfive = false;
+            Boolean divfour = false;
+
+            if(difference % 6 == 0){
+                divsix = true;
+            }
+            if(difference % 5 == 0){
+                divfive = true;
+            }
+            if(difference % 4 == 0){
+                divfour = true;
+            }
+            System.out.println(index.toString() + " difference: " + difference + " divisible by:\n6: " + divsix + "\n4: " + divfour + "\n5: " + divfive);
         }
-        System.out.println(total);
     }
 
-    public HashMap<Character, Integer> letterFreq(String data){
-        HashMap<Character, Integer> letterFreq = new HashMap<>();
-        
+    private ArrayList<String> split(String exercise, int length){
+        ArrayList<String> threeLetters = new ArrayList<>();
         int count = 0;
-        while(count < data.length()){
-            if(letterFreq.containsKey(data.charAt(count))){
-                letterFreq.put(data.charAt(count), letterFreq.get(data.charAt(count))+1);
-            }
-            else{
-                letterFreq.put(data.charAt(count), 1);
-            }
-            count++;
+        while(exercise.length() > count){
+            String sub = exercise.substring(count, count+length);
+
+            threeLetters.add(sub);
+            count+=length;
         }
-        return letterFreq;
+        return threeLetters;
     }
 
 

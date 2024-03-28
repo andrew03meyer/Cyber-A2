@@ -1,8 +1,10 @@
 public class Main{
     public static void main(String args[]){
-        QThree ta1 = new QThree();
-        ta1.ArbitraryVignere(6);
-        // ta1.stringShift("znifnz", "jheffa");
+        // QFour ta1 = new QFour();
+        // ta1.processEx4();
+
+        QThree ta2 = new QThree();
+        ta2.processEx3();
     }
 
 
