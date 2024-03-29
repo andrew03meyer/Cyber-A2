@@ -3,8 +3,8 @@ import java.util.ArrayList;
 public class Main{
     public static void main(String args[]){
 
-        QFive ta3 = new QFive();
-        ta3.process(4);
+        QSeven ta1 = new QSeven();
+        ta1.processEx7();
 
         // ArrayList<ArrayList<Character>> cipher = new ArrayList<>();
         // ArrayList<Character> col1 = new ArrayList<>();

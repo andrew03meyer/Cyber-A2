@@ -124,15 +124,16 @@ public class QFour{
         return newC;
     }
 
+    
+    //----------------------------------------------------------//
+    //              Permutation Methods                         \\
+    //----------------------------------------------------------//
+
     public static List<String> generatePermutations(char[] chars) {
         List<String> result = new ArrayList<>();
         generatePermutations(chars, 0, result);
         return result;
     }
-
-    //----------------------------------------------------------//
-    //              Permutation Methods                         \\
-    //----------------------------------------------------------//
 
     private static void generatePermutations(char[] chars, int index, List<String> result) {
         if (index == chars.length - 1) {
