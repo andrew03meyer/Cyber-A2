@@ -19,8 +19,6 @@ public class QThree{
         String exercise = getExercise("cexercise4.txt");
         ArrayList<String> sixLetters = new ArrayList<>();
 
-        String tess26 = getTess26();
-
         // Split into l length strings
         int count = 0;
         while(exercise.length() > count){
@@ -44,6 +42,8 @@ public class QThree{
                 }
             }
 
+            System.out.println(hash1.toString());
+
             Character highestChar = 'a';
             int highestNum = -1;
             for(Character c : hash1.keySet()){
@@ -56,9 +56,9 @@ public class QThree{
             chars.add(highestChar);
         }
 
-        System.out.println(chars.toString());
+        // System.out.println(chars.toString());
 
-        System.out.println(sixLetters.toString());
+        // System.out.println(sixLetters.toString());
 
         //shift first 3 values
         String total = "";

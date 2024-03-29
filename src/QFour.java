@@ -1,21 +1,20 @@
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Scanner;
 
 public class QFour{
     public void processEx4(){
-        ArbitraryVignere();
+        findRepeats();
     }
 
     /**
      * Perform frequency analysis on the text for a vignere key that is l digits long
      * @param length
      */
-    public void ArbitraryVignere(){
-        String exercise = getExercise("cexercise4.txt");
+    public void findRepeats(){
+        String exercise = getExercise("cexercise5.txt");
         
         // Split into l length strings
         ArrayList<String> fourLetters = split(exercise, 4);
