@@ -14,7 +14,7 @@ public class QFour{
      * @param length
      */
     public void findRepeats(){
-        String exercise = getExercise("cexercise5.txt");
+        String exercise = getExercise("cexercise4.txt");
         
         // Split into l length strings
         ArrayList<String> fourLetters = split(exercise, 4);

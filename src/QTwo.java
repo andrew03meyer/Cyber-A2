@@ -7,7 +7,7 @@ public class QTwo {
         String encoder = "TESSOFTHEDURBERVILLES";
         String cipherText = getExercise("cexercise2.txt");
 
-        stringShift(encoder, cipherText);
+        System.out.println(stringShift(encoder, cipherText));
     }
         /**
      * Gets the excercise file of an input filename

@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 public class QThree{
     public void processEx3(){
-        ArbitraryVignere(4);
+        ArbitraryVignere(6);
     }
 
     /**
@@ -16,7 +16,7 @@ public class QThree{
      */
     public void ArbitraryVignere(int length){
         // String tess26 = getTess26();
-        String exercise = getExercise("cexercise4.txt");
+        String exercise = getExercise("cexercise3.txt");
         ArrayList<String> sixLetters = new ArrayList<>();
 
         // Split into l length strings
@@ -67,9 +67,9 @@ public class QThree{
             newTemp = shiftByNum(newTemp.charAt(0), 'H' - 'E') + newTemp.substring(1);
             newTemp = newTemp.substring(0, 1) + shiftByNum(newTemp.charAt(1), 'G' - 'E') + newTemp.substring(2);
             newTemp = newTemp.substring(0, 2) + shiftByNum(newTemp.charAt(2), 'H' - 'E') + newTemp.substring(3);
-            newTemp = newTemp.substring(0, 3) + shiftByNum(newTemp.charAt(3), 'H' - 'D'); //+ newTemp.substring(4);
-            // newTemp = newTemp.substring(0, 4) + shiftByNum(newTemp.charAt(4), 'U' - 'H') + newTemp.substring(5);
-            // newTemp = newTemp.substring(0, 5) + shiftByNum(newTemp.charAt(5), 'G' - 'E');
+            newTemp = newTemp.substring(0, 3) + shiftByNum(newTemp.charAt(3), 'H' - 'D') + newTemp.substring(4);
+            newTemp = newTemp.substring(0, 4) + shiftByNum(newTemp.charAt(4), 'U' - 'H') + newTemp.substring(5);
+            newTemp = newTemp.substring(0, 5) + shiftByNum(newTemp.charAt(5), 'G' - 'E');
             // System.out.println("Old value: " + temp);
             // System.out.println("New value: " + newTemp +"\n");
             
@@ -77,7 +77,7 @@ public class QThree{
             total += newTemp;
         }
         //frequency for each column
-        for(int x = 0; x < 4; x++){
+        for(int x = 0; x < 6; x++){
             String col = "";
             for(String item : sixLetters){
                 col += item.charAt(x);
