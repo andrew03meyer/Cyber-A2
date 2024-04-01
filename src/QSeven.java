@@ -9,55 +9,34 @@ public class QSeven {
         String exercise = getExercise("cexercise7.txt");
         ArrayList<String> engletterFreq = new ArrayList<>();
 
+        engletterFreq.add("|");
         engletterFreq.add("E");
         engletterFreq.add("T");
-        engletterFreq.add("N");
-        engletterFreq.add("H");
-        engletterFreq.add("O");
-        engletterFreq.add("D");
-        engletterFreq.add("R");
-        
-        
         engletterFreq.add("A");
-        
-        // engletterFreq.add("I");
-        
-        engletterFreq.add("S");
-        
-        // engletterFreq.add("L");
-        // engletterFreq.add("U");
-        // engletterFreq.add("W");
-        // engletterFreq.add("M");
-        // engletterFreq.add("C");
-        // engletterFreq.add("F");
-        // engletterFreq.add("G");
-        // engletterFreq.add("Y");
-        // engletterFreq.add("P");
-        // engletterFreq.add("B");
-        // engletterFreq.add("V");
-        // engletterFreq.add("K");
-        // engletterFreq.add("X");
-        // engletterFreq.add("J");
-        // engletterFreq.add("Q");
-        // engletterFreq.add("Z");
-        
-        
-        
-        
-        
-        
-        // engletterFreq.add("L");
-        // engletterFreq.add("U");
-        // engletterFreq.add("C");
-        // engletterFreq.add("M");
+        engletterFreq.add("R");
+        engletterFreq.add("N");
+        engletterFreq.add("H"); 
+        engletterFreq.add("S"); 
+        engletterFreq.add("C");
+        engletterFreq.add("O");
+        engletterFreq.add("D"); 
+        engletterFreq.add("L"); 
+        engletterFreq.add("F");
+        engletterFreq.add("U");
+        engletterFreq.add("M");
+        engletterFreq.add("W");
+        engletterFreq.add("I");
+        engletterFreq.add("Y");
+        engletterFreq.add("B");
+        engletterFreq.add("G");
 
-        System.out.println(letterFreq(getTess26()));
+        // System.out.println(letterFreq(getTess27()));
 
         
 
 
         HashMap<Character, Integer> letterFreq = letterFreq(exercise);
-        System.out.println(letterFreq);
+        // System.out.println(letterFreq);
         System.out.println(convert(engletterFreq, exercise, letterFreq));
     }
     
@@ -105,11 +84,11 @@ public class QSeven {
         return letterFreq;
     }
 
-    public String getTess26(){
+    public String getTess27(){
         String data;
 
         try {
-            File tess = new File("..\\..\\tess26.txt");
+            File tess = new File("..\\..\\tess27.txt");
             Scanner myReader = new Scanner(tess);
             data = myReader.nextLine();
             myReader.close();
